@@ -1,0 +1,446 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container-md">
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="cartToast" class="toast align-items-center text-bg-success border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage">
+                    Item added to cart
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="image/logo.png" alt="E-Shop Logo" width="100">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#eshopNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="eshopNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item ms-lg-3"><a class="btn btn-outline-dark" href="cart.html">🛒 Cart</a></li>
+                    <li class="nav-item ms-lg-2 mx-lg-3 my-3">
+                        <a class="btn btn-info me-2" href="login.html" id="loginBtn">Login</a>
+                        <a class="btn btn-success" href="register.html" id="regiBtn">Register</a>
+                        <a class="btn btn-danger" style="display:none;" id="logoutBtn">LogOut</a>
+                        <a class="btn btn-info"  href="profile.html" id="profileBtn">Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5 px-4 mb-5 shadow-lg rounded-5 my-5" >
+        <div class="container">
+            <div class="row align-items-center g-5">
+
+                <!-- LEFT CONTENT -->
+                <div class="col-md-6 text-center text-md-start">
+
+                    <span class="badge bg-dark px-3 py-2 mb-3">
+                        ✨ New Collection 2026
+                    </span>
+
+                    <h1 class="fw-bold display-5 mt-3">
+                        Built for the
+                        <span class="text-primary">Modern Lifestyle</span>
+                    </h1>
+
+                    <p class="text-muted fs-5 mt-3">
+                        From premium audio to smart accessories — discover products
+                        that match your vibe, elevate your style, and power your everyday life.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center justify-content-md-start">
+                        <a href="#product" class="btn btn-dark btn-lg px-4">
+                            🛍️ Shop Now
+                        </a>
+                        <a href="cart.html" class="btn btn-outline-secondary btn-lg px-4">
+                            🛒 View Cart
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT IMAGE -->
+                <div class="col-md-6 text-center">
+                    <div class="position-relative">
+                        <img src="image/h6.png" class="img-fluid rounded-4 " style="max-height:550px;"
+                            alt="Featured Product">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <div class="row g-3 mb-4 py-5">
+        <div class="col-md-4">
+            <input type="text" id="searchInput" class="form-control" placeholder="🔍 Search products...">
+        </div>
+
+        <div class="col-md-4">
+            <select id="priceFilter" class="form-select">
+                <option value="">Filter by price</option>
+                <option value="1000-5000">₹1000 - ₹5000</option>
+                <option value="5000-10000">₹5000 - ₹10000</option>
+                <option value="10000-50000">₹10000 - ₹50000</option>
+                <option value="10000-100000">₹50000 - ₹100000</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <select id="sortFilter" class="form-select">
+                <option value="">Sort by</option>
+                <option value="low-high">Price: Low → High</option>
+                <option value="high-low">Price: High → Low</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div id="product" class="row my-3"></div>
+
+    <div class="modal fade" id="productModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content p-3">
+
+                <button class="btn-close ms-auto" data-bs-dismiss="modal"></button>
+
+                <div class="modal-body">
+                    <div class="row align-items-center">
+
+                        <div class="col-md-6 text-center">
+                            <img id="modalImage" class="img-fluid" style="max-height:420px">
+                        </div>
+
+                        <div class="col-md-6">
+                            <span class="badge bg-light text-dark mb-2" id="modalCategory"></span>
+
+                            <h2 class="fw-bold mt-2" id="modalTitle"></h2>
+
+                            <h3 class="text-primary mt-2">
+                                ₹<span id="modalPrice"></span>
+                            </h3>
+
+                            <p class="text-muted mt-3" id="modalDescription"></p>
+
+                            <div class="mb-3">
+                                ⭐ <span id="modalRating"></span>
+                                (<span id="modalReviews"></span> Reviews)
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <footer class=" pt-5 pb-3 bg-light">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 mb-4 mx-lg-3">
+                    <a class="navbar-brand d-flex align-items-center gap-2 mb-3" href="#">
+                        <img src="image/logo.png" alt="E-Shop Logo" width="100">
+                    </a>
+                    <p>Delivering quality products right to your doorstep. Enjoy exclusive offers and seamless shopping
+                        experiences with us.</p>
+                </div>
+
+                <div class="col-md-4 pt-5  text-center">
+                    <h6 class="fw-bold">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-dark text-decoration-none">Home</a></li>
+                        <li><a href="product.html" class="text-dark text-decoration-none">Product</a></li>
+                        <li><a href="cart.html" class="text-dark text-decoration-none">Cart</a></li>
+                        <li><a href="about.html" class="text-dark text-decoration-none">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4  pt-5 text-center">
+                    <h6 class="fw-bold">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-dark text-decoration-none">FAQs</a></li>
+                        <li><a href="#" class="text-dark text-decoration-none">Shipping</a></li>
+                        <li><a href="#" class="text-dark text-decoration-none">Returns</a></li>
+                        <li><a href="#" class="text-dark text-decoration-none">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="bg-secondary" />
+
+            <div class="text-center small">
+                &copy; 2026 E-Shop. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                category: "Audio Accessories",
+                name: "Wireless Earbuds, IPX8",
+                price: 3499,
+                rating: 4.4,
+                reviews: 128,
+                image: "image/h1.png",
+                description:
+                    "Compact and lightweight true wireless earbuds with an IPX8 waterproof rating, making them perfect for workouts, running, and outdoor activities. Features deep bass, crystal-clear audio, seamless Bluetooth connectivity, intuitive touch controls, and up to 30 hours of total battery life with the charging case."
+            },
+            {
+                id: 2,
+                category: "Premium Audio",
+                name: "MacAir Max",
+                price: 62999,
+                rating: 4.8,
+                reviews: 312,
+                image: "image/mac.png",
+                description:
+                    "High-end over-ear headphones engineered for immersive sound quality. Equipped with advanced active noise cancellation, spatial audio support, adaptive EQ, breathable ear cushions, and exceptional all-day comfort. Ideal for professionals, audiophiles, and frequent travelers."
+            },
+            {
+                id: 3,
+                category: "Audio Accessories",
+                name: "Bose BT Earphones",
+                price: 9999,
+                rating: 4.5,
+                reviews: 210,
+                image: "image/h4.png",
+                description:
+                    "Premium Bluetooth earphones delivering powerful bass, balanced sound output, and excellent noise isolation. Designed with an ergonomic fit for extended comfort, high-quality microphones for clear calls, and long-lasting battery performance for daily use."
+            },
+            {
+                id: 4,
+                category: "Smart Home",
+                name: "Home Pod Mini",
+                price: 11999,
+                rating: 4.6,
+                reviews: 185,
+                image: "image/mini.png",
+                description:
+                    "Compact smart speaker offering rich 360-degree audio with intelligent voice assistant support. Seamlessly integrates with smart home devices, provides hands-free control, and delivers impressive sound quality despite its minimal size."
+            },
+            {
+                id: 5,
+                category: "Fashion & Lifestyle",
+                name: "Stylish Leather Bag",
+                price: 4499,
+                rating: 4.3,
+                reviews: 96,
+                image: "image/bag.png",
+                description:
+                    "Elegant and durable premium leather bag crafted for everyday use. Features multiple spacious compartments, high-quality stitching, smooth zippers, and a modern design suitable for office, travel, and casual outings."
+            },
+            {
+                id: 6,
+                category: "Premium Audio",
+                name: "Noise Cancelling Headphones",
+                price: 17999,
+                rating: 4.7,
+                reviews: 264,
+                image: "image/h2.png",
+                description:
+                    "Advanced active noise-cancelling headphones designed for distraction-free listening. Offers immersive sound, comfortable over-ear padding, extended battery life, and optimized performance for travel, work, and entertainment."
+            },
+            {
+                id: 7,
+                category: "Audio Accessories",
+                name: "Wireless Over-Ear Headphones",
+                price: 7999,
+                rating: 4.4,
+                reviews: 142,
+                image: "image/h3.png",
+                description:
+                    "Comfort-focused wireless over-ear headphones delivering balanced sound with enhanced bass. Includes soft ear cushions, adjustable headband, stable Bluetooth connection, and long battery life for uninterrupted listening."
+            },
+            {
+                id: 8,
+                category: "Gaming",
+                name: "Gaming Headset",
+                price: 3999,
+                rating: 4.2,
+                reviews: 174,
+                image: "image/h5.png",
+                description:
+                    "High-performance gaming headset featuring immersive surround sound and a noise-cancelling microphone. Designed with padded ear cups and an adjustable headband to ensure comfort during long gaming sessions."
+            },
+            {
+                id: 9,
+                category: "Professional Audio",
+                name: "Studio Monitor Headphones",
+                price: 14999,
+                rating: 4.6,
+                reviews: 118,
+                image: "image/h6.png",
+                description:
+                    "Professional-grade studio monitor headphones delivering precise and accurate sound reproduction. Ideal for music production, mixing, mastering, and critical listening with exceptional clarity and comfort."
+            }
+        ];
+
+        const productContainer = document.getElementById("product");
+
+        products.forEach(product => {
+            const col = document.createElement("div");
+            col.className = "col-md-4 col-6 mb-3 product-card";
+
+            col.innerHTML = `
+            <div class="card h-100 border-0 shadow-sm">
+
+            <div class="position-relative">
+                <img src="${product.image}" class="card-img-top rounded-top"
+                style="height:420px; object-fit:cover;" alt="${product.name}">
+                <span class="badge bg-success position-absolute top-0 end-0 m-2">New</span>
+            </div>
+
+            <div class="card-body text-center"
+                data-name="${product.name}"
+                data-price="${product.price}">
+
+                <h6 class="card-title fw-semibold">${product.name}</h6>
+
+                <p class="fw-bold fs-5 text-success mb-2">
+                ₹${product.price.toLocaleString()}
+                </p>
+
+                <div class="d-flex justify-content-center gap-2">
+                <button class="btn btn-dark  add-to-cart">
+                    🛒 Add
+                </button>
+
+                <button class="btn btn-outline-secondary btn-sm"
+                    onclick="openModal(${product.id})">
+                    View More
+                </button>
+                </div>  
+            </div>
+            </div>
+`;
+
+
+            productContainer.appendChild(col);
+        });
+
+        function openModal(id) {
+            const product = products.find(p => p.id === id);
+
+            document.getElementById("modalCategory").innerText = product.category;
+            document.getElementById("modalTitle").innerText = product.name;
+            document.getElementById("modalPrice").innerText = product.price;
+            document.getElementById("modalImage").src = product.image;
+            document.getElementById("modalDescription").innerText = product.description;
+            document.getElementById("modalRating").innerText = product.rating;
+            document.getElementById("modalReviews").innerText = product.reviews;
+
+            new bootstrap.Modal(
+                document.getElementById("productModal")
+            ).show();
+        }
+
+        const searchInput = document.getElementById("searchInput");
+        const priceFilter = document.getElementById("priceFilter");
+        const sortFilter = document.getElementById("sortFilter");
+
+        searchInput.addEventListener("input", filterProducts);
+        priceFilter.addEventListener("change", filterProducts);
+        sortFilter.addEventListener("change", filterProducts);
+
+
+        function filterProducts() {
+            const searchText = searchInput.value.toLowerCase();
+            const priceValue = priceFilter.value;
+            const sortValue = sortFilter.value;
+
+            let filteredProducts = [...products];
+
+            // 🔍 Search
+            if (searchText) {
+                filteredProducts = filteredProducts.filter(p =>
+                    p.name.toLowerCase().includes(searchText)
+                );
+            }
+
+            // 💰 Price Filter
+            if (priceValue) {
+                const [min, max] = priceValue.split("-").map(Number);
+                filteredProducts = filteredProducts.filter(
+                    p => p.price >= min && p.price <= max
+                );
+            }
+
+            // 🔃 Sort
+            if (sortValue === "low-high") {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            } else if (sortValue === "high-low") {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            }
+
+            renderProducts(filteredProducts);
+        }
+        function renderProducts(productList) {
+            productContainer.innerHTML = "";
+
+            productList.forEach(product => {
+                const col = document.createElement("div");
+                col.className = "col-md-4 col-6 mb-3 product-card";
+
+                col.innerHTML = `
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="position-relative">
+                <img src="${product.image}" class="card-img-top"
+                     style="height:420px; object-fit:cover;">
+                <span class="badge bg-success position-absolute top-0 end-0 m-2">New</span>
+            </div>
+
+            <div class="card-body text-center">
+                <h6 class="card-title fw-semibold">${product.name}</h6>
+                <p class="fw-bold fs-5 text-success">₹${product.price}</p>
+
+                <div class="d-flex justify-content-center gap-2">
+                    <button class="btn btn-dark add-to-cart">🛒 Add</button>
+                    <button class="btn btn-outline-secondary btn-sm"
+                        onclick="openModal(${product.id})">View More</button>
+                </div>
+            </div>
+        </div>`;
+
+                productContainer.appendChild(col);
+            });
+        }
+
+
+    </script>
+
+    <script src="isLoggin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="add-to-cart.js"></script>
+</body>
+
+</html>

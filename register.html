@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container-md">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="image/logo.png" alt="E-Shop Logo" width="100">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#eshopNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="eshopNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item ms-lg-3"><a class="btn btn-outline-dark" href="cart.html">🛒 Cart</a></li>
+                    <li class="nav-item ms-lg-2 mx-lg-3 my-3">
+                        <a class="btn btn-info me-2" href="login.html" id="loginBtn">Login</a>
+                        <a class="btn btn-success" href="register.html" id="regiBtn">Register</a>
+                        <a class="btn btn-danger" style="display:none;" id="logoutBtn">LogOut</a>
+                        <a class="btn btn-info"  href="profile.html" id="profileBtn">Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card shadow-lg p-5 rounded-4" style="max-width: 450px; width: 100%;">
+
+            <div class="text-center mb-4">
+                <img src="image/logo.png" alt="E-Shop Logo" width="100">
+                <h4 class="mt-3 fw-bold">Create Your Account</h4>
+                <p class="text-muted">Sign up now and start shopping with E-Shop!</p>
+            </div>
+
+            <form id="register">
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label fw-semibold">First Name</label>
+                        <input type="text" class="form-control rounded-3" name="fName" id="firstName"
+                            placeholder="First Name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label fw-semibold">Last Name</label>
+                        <input type="text" class="form-control rounded-3" name="lName" id="lastName"
+                            placeholder="Last Name" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold">Email address</label>
+                    <input type="email" class="form-control rounded-3" name="email" id="email"
+                        placeholder="Enter your email" required>
+                    <p class="text-danger text-center fs-6" id="em"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-semibold">Password</label>
+                    <input type="password" class="form-control rounded-3" name="password" id="password"
+                        placeholder="Enter your password" required>
+                    <p class="text-danger text-center fs-6" id="pass"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label fw-semibold">Confirm Password</label>
+                    <input type="password" class="form-control rounded-3" name="conPassword" id="confirmPassword"
+                        placeholder="Confirm password" required>
+                    <p class="text-danger text-center fs-6" id="con"></p>
+                </div>
+
+                <button type="submit" class="btn btn-dark w-100 py-2 fw-semibold rounded-3">Register</button>
+
+                <p class="text-success text-center fs-6 pt-" id="successElem"></p>
+            </form>
+
+            <div class="text-center mt-4">
+                <span>Already have an account? <a href="login.html" class="text-primary fw-semibold">Login</a></span>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const form = document.getElementById("register");
+        const pass = document.getElementById("pass");
+        const con = document.getElementById("con");
+        const emailElem = document.getElementById("em");
+        const successElem = document.getElementById("successElem");
+
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            pass.innerText = "";
+            con.innerText = "";
+            emailElem.innerText = "";
+            successElem.innerText = "";
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+
+            if (!emailRegex.test(data.email)) {
+                emailElem.innerText = "❌ Invalid Email!";
+                return;
+            }
+
+            if (data.password !== data.conPassword) {
+                pass.innerText = "Password & Confirm Password must match!";
+                con.innerText = "Password & Confirm Password must match!";
+                return;
+            }
+
+            data.id = `usr-${Date.now()}`;
+
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+
+
+            if (!Array.isArray(users)) {
+                users = [];
+            }
+
+
+            const isEmailExist = users.some(user => user.email === data.email);
+            if (isEmailExist) {
+                emailElem.innerText = "⚠️ Email already registered!";
+                return;
+            }
+
+            users.push(data);
+            localStorage.setItem("users", JSON.stringify(users));
+
+            successElem.innerText = "✅ You are successfully registered! Redirecting to login...";
+
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1000);
+
+            form.reset();
+        });
+    </script>
+    <script src="isLoggin.js"></script>
+</body>
+
+</html>
