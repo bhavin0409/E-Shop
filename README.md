@@ -4,8 +4,7 @@ E-Shop is a responsive and user-friendly e-commerce website built using **HTML, 
 It provides a smooth shopping experience with product listing, add-to-cart functionality, and cart data stored using **LocalStorage**.
 
 ---
-```js
-https://e-shop-bhavin.netlify.app/ 
+
 ## 🚀 Features
 
 - ✅ Responsive Navbar with logo and navigation links
@@ -37,4 +36,4 @@ https://e-shop-bhavin.netlify.app/
 - If the product already exists, quantity increases
 
 ```js
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+https://e-shop-bhavin.netlify.app/
